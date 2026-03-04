@@ -223,14 +223,7 @@ nav {
 
 /* Big background circle */
 .hero-right::before {
-  content: '';
-  position: absolute;
-  width: 500px; height: 500px;
-  background: var(--light-pink);
-  border-radius: 50%;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
+  display: none;
 }
 
 .hero-illus-wrap {
@@ -872,6 +865,31 @@ footer {
   font-size: 11px; color: rgba(255,255,255,0.25);
 }
 
+/* ===================== SLIDESHOW ===================== */
+.hero-slideshow {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+.slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.slide.active { opacity: 1; }
+
+.slide-dots {
+  position: absolute; bottom: 24px; right: 24px;
+  display: flex; gap: 8px; z-index: 2;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer; transition: background 0.3s, transform 0.3s;
+}
+.dot.active { background: white; transform: scale(1.3); }
+
 /* ===================== SCROLL ANIMATIONS ===================== */
 .reveal {
   opacity: 0; transform: translateY(24px);
@@ -955,8 +973,6 @@ footer {
       <em>さがす</em>場所。
     </h1>
 
-    <p class="hero-title2">ソウゾウや、愛っぽい…</p>
-
     <p class="hero-desc">
       こどもと社会をつなぐ、クリエイティブな3rdプレイス。<br>
       アートとデザインの力で、子どもたちの内なる可能性を引き出し、<br>
@@ -995,20 +1011,20 @@ footer {
       <span>ソウゾウ力</span>
     </div>
 
-    <div class="hero-illus-wrap">
-      <!-- 
-        ★ここに顔写真を入れる★
-        <img src="your-photo.jpg" style="width:280px;height:280px;object-fit:cover;border-radius:50%;border:6px solid white;box-shadow:0 20px 60px rgba(0,0,0,0.12);">
-      -->
-      <div class="hero-photo-placeholder">
-        🌸
-        <div class="hero-photo-label">さくら / Sakura</div>
+    <!-- Slideshow -->
+    <div class="hero-slideshow">
+      <div class="slide active" style="background-image:url('images/img4_hikari.jpg')"></div>
+      <div class="slide" style="background-image:url('images/img2_shokudo.jpg')"></div>
+      <div class="slide" style="background-image:url('images/img3_workshop.jpg')"></div>
+      <div class="slide" style="background-image:url('images/img5_craft.jpg')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(251,246,238,0.3) 0%, transparent 50%);z-index:1;pointer-events:none;"></div>
+      <div class="slide-dots">
+        <span class="dot active" onclick="goSlide(0)"></span>
+        <span class="dot" onclick="goSlide(1)"></span>
+        <span class="dot" onclick="goSlide(2)"></span>
+        <span class="dot" onclick="goSlide(3)"></span>
       </div>
     </div>
-
-    <!-- Decorative -->
-    <div class="hero-deco-star" style="top:10%;left:8%;font-size:40px;">✦</div>
-    <div class="hero-deco-star" style="bottom:20%;right:10%;font-size:24px;animation-direction:reverse;">✦</div>
   </div>
 </section>
 
@@ -1049,7 +1065,7 @@ footer {
       <div class="topic-card featured reveal">
         <div class="topic-img">
           <!-- ★写真差し替え★ <img src="photo.jpg" style="width:100%;height:100%;object-fit:cover;"> -->
-          <div class="topic-img-placeholder">🎨</div>
+          <div class="topic-img-placeholder"><img src="images/img1_atelier.jpg" onerror="this.parentElement.innerHTML='🎨'" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
         <div class="topic-body">
           <span class="topic-tag">NOTE</span>
@@ -1113,7 +1129,7 @@ footer {
       <div class="reveal">
         <!-- ★代表写真差し替え★ -->
         <div class="story-photo">
-          🌸
+          <img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:24px;">
           <div class="story-photo-label">
             <strong>琴川 さくら</strong>
             <span>Founder & Representative</span>
@@ -1180,7 +1196,7 @@ footer {
       <div class="svc-card c1 reveal">
         <div class="svc-icon">🍜</div>
         <h3>こどもアトリエ食堂</h3>
-        <p>栄養ある食事と安心できる居場所。アートを通じて自己表現する力を育む社会貢献事業。すべての子どもたちに開かれた場所。</p>
+        <p>全ての子どもたちのソウゾウ力を認め、応援し、愛で包み込む場所。栄養ある食事と安心できる居場所をアートとともに届けます。</p>
         <span class="svc-tag">社会貢献</span>
       </div>
 
@@ -1378,7 +1394,7 @@ footer {
           <a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="btn-donate" target="_blank">
             💛 今すぐ寄付・応援する
           </a>
-          <a href="mailto:info@marontomar.jp" class="btn-contact-white">
+          <a href="/cdn-cgi/l/email-protection#4b22252d240b262a3924253f24262a3965213b" class="btn-contact-white">
             企業協賛・CSRのご相談
           </a>
         </div>
@@ -1418,12 +1434,11 @@ footer {
       </a>
     </div>
 
-    <div class="insta-grid">
-      <!-- ★Instagramの写真をここに差し替え★ -->
-      <div class="insta-item" style="background:linear-gradient(135deg,var(--light-pink),#fbd5dc);" data-label="ワークショップ">🎨</div>
-      <div class="insta-item" style="background:linear-gradient(135deg,#E8F5EE,#c8ebd8);" data-label="こどもたちの作品">🌱</div>
-      <div class="insta-item" style="background:linear-gradient(135deg,var(--light-yellow),#fde8b4);" data-label="活動の様子">✨</div>
-      <div class="insta-item" style="background:linear-gradient(135deg,#e8effe,#c8d8f5);" data-label="日常">📸</div>
+      <div class="insta-grid">
+      <div class="insta-item" data-label="ワークショップ"><img src="images/img1_atelier.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item" data-label="こどもアトリエ食堂"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item" data-label="ものづくり"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item" data-label="活動の様子"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
   </div>
 </section>
@@ -1443,7 +1458,7 @@ footer {
       <div class="footer-social">
         <a href="https://www.instagram.com/marrontmarc" target="_blank" title="Instagram">📷</a>
         <a href="https://note.com" target="_blank" title="note">📝</a>
-        <a href="mailto:info@marontomar.jp" title="Mail">✉️</a>
+        <a href="/cdn-cgi/l/email-protection#80e9eee6efc0ede1f2efeef4efede1f2aeeaf0" title="Mail">✉️</a>
       </div>
     </div>
 
@@ -1474,7 +1489,24 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Slideshow
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+setInterval(() => {
+  goSlide((currentSlide + 1) % slides.length);
+}, 4000);
+
 // Custom cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
@@ -1525,12 +1557,4 @@ function toggleMenu() {
     links.style.left = '0'; links.style.right = '0';
     links.style.background = 'rgba(251,246,238,0.98)';
     links.style.padding = '24px 32px';
-    links.style.gap = '20px';
-    links.style.backdropFilter = 'blur(16px)';
-    links.style.borderBottom = '1px solid rgba(0,0,0,0.08)';
-    links.style.zIndex = '199';
-  }
-}
-</script>
-</body>
-</html>
+    links.st
