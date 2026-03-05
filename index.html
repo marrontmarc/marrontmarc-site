@@ -949,12 +949,12 @@ footer {
   <!-- Background media slideshow -->
   <div class="hero-bg">
     <div class="hero-slide active">
-      <video muted playsinline>
+      <video muted autoplay playsinline loop>
         <source src="videos/clip1.mp4" type="video/mp4">
       </video>
     </div>
     <div class="hero-slide">
-      <video muted playsinline>
+      <video muted autoplay playsinline loop>
         <source src="videos/clip2.mp4" type="video/mp4">
       </video>
     </div>
@@ -1461,43 +1461,25 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Hero slideshow - videos play once then advance, photos 3s with kenburns
+// Hero slideshow
 let currentHeroSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hdot');
-let heroTimer = null;
 
 function goHeroSlide(n) {
-  const prev = heroSlides[currentHeroSlide];
-  prev.classList.remove('active');
-  heroDots[currentHeroSlide].classList.remove('active');
-  const prevVid = prev.querySelector('video');
-  if (prevVid) { prevVid.pause(); prevVid.currentTime = 0; prevVid.onended = null; }
-  if (heroTimer) { clearTimeout(heroTimer); heroTimer = null; }
+  heroSlides[currentHeroSlide].classList.remove('active');
+  if (heroDots[currentHeroSlide]) heroDots[currentHeroSlide].classList.remove('active');
 
-  currentHeroSlide = (n + heroSlides.length) % heroSlides.length;
-  const current = heroSlides[currentHeroSlide];
-  current.classList.add('active');
-  heroDots[currentHeroSlide].classList.add('active');
+  currentHeroSlide = ((n % heroSlides.length) + heroSlides.length) % heroSlides.length;
 
-  const vid = current.querySelector('video');
-  if (vid) {
-    vid.currentTime = 0;
-    const playPromise = vid.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // autoplay blocked - skip after 3s
-        heroTimer = setTimeout(() => goHeroSlide(currentHeroSlide + 1), 3000);
-      });
-    }
-    vid.onended = () => goHeroSlide(currentHeroSlide + 1);
-  } else {
-    heroTimer = setTimeout(() => goHeroSlide(currentHeroSlide + 1), 3000);
-  }
+  heroSlides[currentHeroSlide].classList.add('active');
+  if (heroDots[currentHeroSlide]) heroDots[currentHeroSlide].classList.add('active');
+
+  const vid = heroSlides[currentHeroSlide].querySelector('video');
+  if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
 }
 
-// Start after page load
-window.addEventListener('load', () => goHeroSlide(0));
+setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 
 
 
