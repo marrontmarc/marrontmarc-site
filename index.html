@@ -31,33 +31,10 @@ body {
   background: var(--warm);
   color: var(--text);
   overflow-x: hidden;
-  cursor: none;
-}
-
-/* Custom cursor */
-.cursor {
-  width: 12px; height: 12px;
-  background: var(--red);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
   
 }
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1.5px solid var(--red);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
-  opacity: 0.5;
-}
-body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 20px; height: 20px; background: var(--yellow); }
+
+
 
 /* ===================== NAV ===================== */
 nav {
@@ -937,9 +914,6 @@ footer {
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- ===== NAV ===== -->
 <nav>
   <a href="#" class="nav-logo">
@@ -1506,25 +1480,7 @@ setInterval(() => {
   goSlide((currentSlide + 1) % slides.length);
 }, 4000);
 
-// Custom cursor
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
 
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
-
-function animateRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
 
 // Scroll reveal
 // Make all reveals visible immediately as fallback
