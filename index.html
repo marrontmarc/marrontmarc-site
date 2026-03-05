@@ -5,8 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>マロントマール | さがすものをさがす場所</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Kaisei+Tokumin:wght@400;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Brown';
+  src: url('fonts/Brown-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal;
+}
+@font-face {
+  font-family: 'Brown';
+  src: url('fonts/Brown-Light.woff2') format('woff2');
+  font-weight: 300; font-style: normal;
+}
+@font-face {
+  font-family: 'Brown';
+  src: url('fonts/Brown-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal;
+}
 :root {
   --red: #E8294A;
   --pink: #F5637A;
@@ -27,7 +42,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Zen Maru Gothic', sans-serif;
+  font-family: 'YuGothic', 'Yu Gothic', '游ゴシック', sans-serif;
   background: var(--warm);
   color: var(--text);
   overflow-x: hidden;
@@ -65,7 +80,7 @@ nav {
 }
 .nav-logo-sub {
   font-size: 10px; color: var(--muted); font-weight: 400;
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
 }
 
 .nav-links {
@@ -106,7 +121,7 @@ nav {
 
 /* Handwritten label */
 .hero-eyebrow {
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 18px; color: var(--red);
   margin-bottom: 16px;
   display: flex; align-items: center; gap: 8px;
@@ -140,7 +155,7 @@ nav {
 }
 
 .hero-title2 {
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: clamp(20px, 2.2vw, 30px);
   color: var(--muted);
   margin-bottom: 32px;
@@ -180,7 +195,7 @@ nav {
 .scroll-hint {
   position: absolute; bottom: 32px; left: 56px;
   display: flex; align-items: center; gap: 10px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 14px; color: var(--muted);
   animation: bounce 2s ease-in-out infinite;
 }
@@ -211,7 +226,7 @@ nav {
 }
 .hero .hero-eyebrow {
   color: rgba(255,255,255,0.8);
-  font-family: 'Caveat', cursive; font-size: 18px;
+  font-family: 'Brown', sans-serif; font-size: 18px;
   margin-bottom: 16px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
 }
@@ -265,7 +280,7 @@ nav {
 .scroll-hint {
   position: absolute; bottom: 40px; right: 40px; z-index: 4;
   display: flex; align-items: center; gap: 10px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 14px; color: rgba(255,255,255,0.7);
   animation: bounce 2s ease-in-out infinite;
 }
@@ -303,7 +318,7 @@ nav {
 .container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
 
 .sec-eyebrow {
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 16px; color: var(--red);
   margin-bottom: 10px;
   display: flex; align-items: center; gap: 8px;
@@ -330,7 +345,7 @@ nav {
   margin-bottom: 48px;
 }
 .topics-all {
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 16px; color: var(--red);
   text-decoration: none;
   display: flex; align-items: center; gap: 6px;
@@ -395,7 +410,7 @@ nav {
 
 .topic-date {
   font-size: 11px; color: var(--muted);
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
 }
 
 /* ===================== STORY ===================== */
@@ -438,7 +453,7 @@ nav {
   color: white;
 }
 .story-photo-label strong { display: block; font-size: 15px; font-weight: 700; }
-.story-photo-label span { font-size: 11px; opacity: 0.6; font-family: 'Caveat', cursive; }
+.story-photo-label span { font-size: 11px; opacity: 0.6; font-family: 'Brown', sans-serif; }
 
 .story-content {}
 
@@ -475,7 +490,7 @@ nav {
   border: 2px solid rgba(232,41,74,0.4);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; margin-top: 2px;
-  font-family: 'Caveat', cursive; font-size: 13px; color: var(--pink);
+  font-family: 'Brown', sans-serif; font-size: 13px; color: var(--pink);
 }
 .tl-content {}
 .tl-year { font-size: 11px; color: var(--pink); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 3px; }
@@ -618,7 +633,7 @@ nav {
 .work-body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
 .work-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
 .work-desc { font-size: 12px; color: var(--muted); line-height: 1.8; flex: 1; }
-.work-year { font-family: 'Caveat', cursive; font-size: 13px; color: var(--muted); margin-top: 12px; }
+.work-year { font-family: 'Brown', sans-serif; font-size: 13px; color: var(--muted); margin-top: 12px; }
 
 /* ===================== MEMBERS ===================== */
 .members { background: white; }
@@ -741,7 +756,7 @@ nav {
 .support-card p { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
 .support-amount {
-  font-family: 'Caveat', cursive;
+  font-family: 'Brown', sans-serif;
   font-size: 28px; color: var(--yellow);
   display: block; margin-bottom: 4px;
 }
@@ -756,7 +771,7 @@ nav {
 
 .insta-link {
   display: flex; align-items: center; gap: 8px;
-  font-family: 'Caveat', cursive; font-size: 16px;
+  font-family: 'Brown', sans-serif; font-size: 16px;
   color: var(--red); text-decoration: none;
   transition: gap 0.2s;
 }
@@ -815,7 +830,7 @@ footer {
 .footer-logo-text { font-size: 18px; font-weight: 900; color: white; }
 
 .footer-tagline {
-  font-family: 'Caveat', cursive; font-size: 16px;
+  font-family: 'Brown', sans-serif; font-size: 16px;
   color: rgba(255,255,255,0.4); margin-bottom: 20px;
   line-height: 1.6;
 }
@@ -937,7 +952,7 @@ footer {
     <li><a href="#services">サービス</a></li>
     <li><a href="#works">実績</a></li>
     <li><a href="#members">チーム</a></li>
-    <li><a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="nav-support" target="_blank">💛 応援する</a></li>
+    <li><a href="support.html" class="nav-support">仲間になる</a></li>
   </ul>
 
   <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
@@ -948,18 +963,10 @@ footer {
 
   <!-- Background media slideshow -->
   <div class="hero-bg">
-    <div class="hero-slide active">
-      <video muted autoplay playsinline loop>
-        <source src="videos/clip1.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="hero-slide">
-      <video muted autoplay playsinline loop>
-        <source src="videos/clip2.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="hero-slide kenburns" style="background-image:url('images/img4_hikari.jpg')"></div>
+    <div class="hero-slide kenburns active" style="background-image:url('images/img4_hikari.jpg')"></div>
+    <div class="hero-slide kenburns" style="background-image:url('images/img2_shokudo.jpg')"></div>
     <div class="hero-slide kenburns" style="background-image:url('images/img3_workshop.jpg')"></div>
+    <div class="hero-slide kenburns" style="background-image:url('images/img5_craft.jpg')"></div>
   </div>
 
   <!-- Dark overlay -->
@@ -983,10 +990,10 @@ footer {
 
   <!-- Dots -->
   <div class="hero-dots">
-    <span class="hdot active" onclick="goHeroSlide(0)"></span>
-    <span class="hdot" onclick="goHeroSlide(1)"></span>
-    <span class="hdot" onclick="goHeroSlide(2)"></span>
-    <span class="hdot" onclick="goHeroSlide(3)"></span>
+    <span class="hdot active" onclick="go(0)"></span>
+    <span class="hdot" onclick="go(1)"></span>
+    <span class="hdot" onclick="go(2)"></span>
+    <span class="hdot" onclick="go(3)"></span>
   </div>
 
   <!-- Scroll hint -->
