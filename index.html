@@ -949,7 +949,7 @@ footer {
   <!-- Background media slideshow -->
   <div class="hero-bg">
     <div class="hero-slide active">
-      <video muted autoplay playsinline loop>
+      <video muted autoplay playsinline>
         <source src="videos/clip1.mp4" type="video/mp4">
       </video>
     </div>
@@ -1465,6 +1465,7 @@ footer {
 let currentHeroSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hdot');
+let slideTimer = null;
 
 function goHeroSlide(n) {
   heroSlides[currentHeroSlide].classList.remove('active');
@@ -1477,9 +1478,20 @@ function goHeroSlide(n) {
 
   const vid = heroSlides[currentHeroSlide].querySelector('video');
   if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 }
 
-setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
+// clip1: 再生終了したら即次のスライドへ（3.5s より早く終わった場合）
+const clip1Vid = heroSlides[0] && heroSlides[0].querySelector('video');
+if (clip1Vid) {
+  clip1Vid.addEventListener('ended', () => {
+    if (currentHeroSlide === 0) goHeroSlide(1);
+  });
+}
+
+slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 
 
 
