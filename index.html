@@ -1467,6 +1467,7 @@ const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hdot');
 
 function goHeroSlide(n) {
+  console.log('slide:', n);
   heroSlides[currentHeroSlide].classList.remove('active');
   if (heroDots[currentHeroSlide]) heroDots[currentHeroSlide].classList.remove('active');
 
@@ -1479,7 +1480,7 @@ function goHeroSlide(n) {
   if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
 }
 
-setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
+setInterval(() => { console.log('interval tick'); goHeroSlide(currentHeroSlide + 1); }, 3500);
 
 
 
