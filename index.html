@@ -1483,15 +1483,27 @@ function goHeroSlide(n) {
   slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 }
 
-// clip1: 再生終了したら即次のスライドへ（3.5s より早く終わった場合）
+// clip1: duration取得後、その時間でsetTimeout → 次スライドへ
 const clip1Vid = heroSlides[0] && heroSlides[0].querySelector('video');
 if (clip1Vid) {
-  clip1Vid.addEventListener('ended', () => {
-    if (currentHeroSlide === 0) goHeroSlide(1);
-  });
+  const startClip1Timer = () => {
+    const dur = clip1Vid.duration;
+    if (dur && isFinite(dur)) {
+      clearInterval(slideTimer);
+      setTimeout(() => { if (currentHeroSlide === 0) goHeroSlide(1); }, dur * 1000);
+    } else {
+      // durationが取れなければ3.5sフォールバック
+      slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
+    }
+  };
+  if (clip1Vid.readyState >= 1) {
+    startClip1Timer();
+  } else {
+    clip1Vid.addEventListener('loadedmetadata', startClip1Timer, { once: true });
+  }
+} else {
+  slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 }
-
-slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 
 
 
