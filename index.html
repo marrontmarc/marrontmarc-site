@@ -93,18 +93,15 @@ nav {
 /* ===================== HERO ===================== */
 .hero {
   min-height: 100vh;
-  padding-top: 64px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   position: relative;
   overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
 }
 
 .hero-left {
-  padding: 80px 56px 80px 56px;
-  display: flex; flex-direction: column; justify-content: center;
-  position: relative;
-  z-index: 2;
+  position: relative; z-index: 3;
+  text-align: center;
+  padding: 0 24px;
 }
 
 /* Handwritten label */
@@ -190,77 +187,82 @@ nav {
 .scroll-hint svg { width: 20px; height: 20px; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-/* Hero right - illustration area */
-.hero-right {
-  background: var(--cream);
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+/* ===================== HERO FULLSCREEN ===================== */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
 }
-
-/* Big background circle */
-.hero-right::before {
-  display: none;
+.hero-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  background-size: cover; background-position: center;
 }
-
-.hero-illus-wrap {
-  position: relative; z-index: 1;
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
+.hero-slide.active { opacity: 1; }
+.hero-slide video {
+  width: 100%; height: 100%; object-fit: cover;
 }
-
-.hero-photo-placeholder {
-  width: 280px; height: 280px;
-  border-radius: 50%;
-  background: white;
-  border: 6px solid white;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  font-size: 80px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.5) 100%);
 }
-
-.hero-photo-label {
-  position: absolute; bottom: 20px;
-  font-size: 11px; font-weight: 700;
-  color: var(--muted); letter-spacing: 0.1em;
-  font-family: 'Caveat', cursive; font-size: 14px;
-  background: white; padding: 4px 12px; border-radius: 100px;
+.hero-left {
+  position: relative; z-index: 3;
+  text-align: center; padding: 0 24px;
 }
-
-/* Floating cards around the photo */
-.hero-float {
-  position: absolute;
-  background: white;
-  border-radius: 16px;
-  padding: 12px 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  font-size: 12px;
-  animation: float 4s ease-in-out infinite;
-  white-space: nowrap;
+.hero .hero-eyebrow {
+  color: rgba(255,255,255,0.8);
+  font-family: 'Caveat', cursive; font-size: 18px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
 }
-.hero-float strong { display: block; font-size: 20px; font-weight: 900; color: var(--red); }
-.hero-float span { color: var(--muted); font-size: 11px; }
-
-.hf1 { top: 15%; left: 5%; animation-delay: 0s; }
-.hf2 { top: 20%; right: 5%; animation-delay: 1.3s; }
-.hf3 { bottom: 25%; left: 3%; animation-delay: 0.7s; }
-.hf4 { bottom: 18%; right: 6%; animation-delay: 2s; }
-
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-/* Deco elements */
-.hero-deco-star {
-  position: absolute;
+.hero .hero-eyebrow::before {
+  content: ''; width: 32px; height: 2px;
+  background: rgba(255,255,255,0.6); border-radius: 2px;
+}
+.hero .hero-title {
+  color: white;
+  font-family: 'Kaisei Tokumin', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 700; line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.hero .hero-title em { color: var(--yellow); font-style: normal; }
+.hero .hero-title em::after { display: none; }
+.hero .hero-desc {
+  color: rgba(255,255,255,0.85);
+  font-size: 16px; margin-bottom: 40px;
+  max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.btn-ghost-white {
+  border: 1.5px solid rgba(255,255,255,0.6);
+  color: white; padding: 14px 32px;
+  border-radius: 100px; font-size: 14px; font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+}
+.btn-ghost-white:hover { background: rgba(255,255,255,0.2); }
+.hero-dots {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 4;
+}
+.hdot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer; transition: background 0.3s, transform 0.3s;
+}
+.hdot.active { background: white; transform: scale(1.3); }
+.scroll-hint {
+  position: absolute; bottom: 40px; right: 40px; z-index: 4;
+  display: flex; align-items: center; gap: 10px;
   font-family: 'Caveat', cursive;
-  color: var(--red); opacity: 0.3;
-  animation: spin 20s linear infinite;
-  user-select: none;
+  font-size: 14px; color: rgba(255,255,255,0.7);
+  animation: bounce 2s ease-in-out infinite;
 }
-@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.scroll-hint svg { width: 20px; height: 20px; }
 
 /* ===================== MARQUEE STRIP ===================== */
 .marquee-strip {
@@ -885,10 +887,8 @@ footer {
   .nav-links { display: none; }
   .nav-hamburger { display: block; cursor: pointer; background: none; border: none; font-size: 24px; }
 
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-left { padding: 48px 24px 40px; }
-  .hero-right { min-height: 360px; }
-  .scroll-hint { display: none; }
+  .hero { min-height: 100vh; }
+  .hero .hero-title { font-size: clamp(40px, 10vw, 64px); }
 
   .topics-grid { grid-template-columns: 1fr; }
   .topic-card.featured { grid-row: auto; }
@@ -938,67 +938,58 @@ footer {
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
+
+  <!-- Background media slideshow -->
+  <div class="hero-bg">
+    <div class="hero-slide active">
+      <video autoplay muted playsinline loop>
+        <source src="videos/clip1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-slide">
+      <video autoplay muted playsinline loop>
+        <source src="videos/clip2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-slide" style="background-image:url('images/img4_hikari.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/img3_workshop.jpg')"></div>
+  </div>
+
+  <!-- Dark overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Center text -->
   <div class="hero-left">
     <p class="hero-eyebrow">Creative 3rd Place for Children</p>
-
     <h1 class="hero-title">
       さがすものを<br>
       <em>さがす</em>場所。
     </h1>
-
     <p class="hero-desc">
-      こどもと社会をつなぐ、クリエイティブな3rdプレイス。<br>
-      アートとデザインの力で、子どもたちの内なる可能性を引き出し、<br>
-      社会と深くつながる場所をつくります。
+      こどもと社会をつなぐ、クリエイティブな3rdプレイス。
     </p>
-
     <div class="hero-btns">
-      <a href="#story" class="btn-primary">わたしたちのこと</a>
-      <a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="btn-ghost" target="_blank">💛 活動を応援する</a>
-    </div>
-
-    <div class="scroll-hint">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
-      scroll
+      <a href="#about" class="btn-primary">わたしたちのこと</a>
+      <a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="btn-ghost-white" target="_blank">💛 活動を応援する</a>
     </div>
   </div>
 
-  <div class="hero-right">
-    <!-- Floating stats -->
-    <div class="hero-float hf1 reveal">
-      <strong>3</strong>
-      <span>ヶ国での実績</span>
-    </div>
-    <div class="hero-float hf2 reveal reveal-d1">
-      <strong>10+</strong>
-      <span>コラボ事例</span>
-    </div>
-    <div class="hero-float hf3 reveal reveal-d2">
-      <strong>2024</strong>
-      <span>法人設立</span>
-    </div>
-    <div class="hero-float hf4 reveal reveal-d3">
-      <strong>∞</strong>
-      <span>ソウゾウ力</span>
-    </div>
-
-    <!-- Slideshow -->
-    <div class="hero-slideshow">
-      <div class="slide active" style="background-image:url('images/img4_hikari.jpg')"></div>
-      <div class="slide" style="background-image:url('images/img2_shokudo.jpg')"></div>
-      <div class="slide" style="background-image:url('images/img3_workshop.jpg')"></div>
-      <div class="slide" style="background-image:url('images/img5_craft.jpg')"></div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(251,246,238,0.3) 0%, transparent 50%);z-index:1;pointer-events:none;"></div>
-      <div class="slide-dots">
-        <span class="dot active" onclick="goSlide(0)"></span>
-        <span class="dot" onclick="goSlide(1)"></span>
-        <span class="dot" onclick="goSlide(2)"></span>
-        <span class="dot" onclick="goSlide(3)"></span>
-      </div>
-    </div>
+  <!-- Dots -->
+  <div class="hero-dots">
+    <span class="hdot active" onclick="goHeroSlide(0)"></span>
+    <span class="hdot" onclick="goHeroSlide(1)"></span>
+    <span class="hdot" onclick="goHeroSlide(2)"></span>
+    <span class="hdot" onclick="goHeroSlide(3)"></span>
   </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+    scroll
+  </div>
+
 </section>
 
 <!-- ===== MARQUEE ===== -->
@@ -1463,22 +1454,29 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Slideshow
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
+// Hero slideshow
+let currentHeroSlide = 0;
+const heroSlides = document.querySelectorAll('.hero-slide');
+const heroDots = document.querySelectorAll('.hdot');
 
-function goSlide(n) {
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide = n;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
+function goHeroSlide(n) {
+  heroSlides[currentHeroSlide].classList.remove('active');
+  heroDots[currentHeroSlide].classList.remove('active');
+  // pause previous video
+  const prevVid = heroSlides[currentHeroSlide].querySelector('video');
+  if (prevVid) prevVid.pause();
+  
+  currentHeroSlide = n;
+  heroSlides[currentHeroSlide].classList.add('active');
+  heroDots[currentHeroSlide].classList.add('active');
+  // play new video
+  const newVid = heroSlides[currentHeroSlide].querySelector('video');
+  if (newVid) newVid.play();
 }
 
 setInterval(() => {
-  goSlide((currentSlide + 1) % slides.length);
-}, 4000);
+  goHeroSlide((currentHeroSlide + 1) % heroSlides.length);
+}, 5000);
 
 
 
