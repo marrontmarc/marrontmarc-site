@@ -1461,22 +1461,21 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Hero slideshow - 3s each, videos play once then advance
+// Hero slideshow - videos play once then advance, photos 3s with kenburns
 let currentHeroSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hdot');
 let heroTimer = null;
 
 function goHeroSlide(n) {
-  // cleanup previous
   const prev = heroSlides[currentHeroSlide];
   prev.classList.remove('active');
   heroDots[currentHeroSlide].classList.remove('active');
   const prevVid = prev.querySelector('video');
   if (prevVid) { prevVid.pause(); prevVid.currentTime = 0; prevVid.onended = null; }
-  if (heroTimer) clearTimeout(heroTimer);
+  if (heroTimer) { clearTimeout(heroTimer); heroTimer = null; }
 
-  currentHeroSlide = n;
+  currentHeroSlide = (n + heroSlides.length) % heroSlides.length;
   const current = heroSlides[currentHeroSlide];
   current.classList.add('active');
   heroDots[currentHeroSlide].classList.add('active');
@@ -1484,22 +1483,21 @@ function goHeroSlide(n) {
   const vid = current.querySelector('video');
   if (vid) {
     vid.currentTime = 0;
-    vid.play();
-    vid.onended = () => goHeroSlide((currentHeroSlide + 1) % heroSlides.length);
+    const playPromise = vid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // autoplay blocked - skip after 3s
+        heroTimer = setTimeout(() => goHeroSlide(currentHeroSlide + 1), 3000);
+      });
+    }
+    vid.onended = () => goHeroSlide(currentHeroSlide + 1);
   } else {
-    // photo - 3s then advance
-    heroTimer = setTimeout(() => {
-      goHeroSlide((currentHeroSlide + 1) % heroSlides.length);
-    }, 3000);
+    heroTimer = setTimeout(() => goHeroSlide(currentHeroSlide + 1), 3000);
   }
 }
 
-// Start
-const firstVid = heroSlides[0].querySelector('video');
-if (firstVid) {
-  firstVid.play();
-  firstVid.onended = () => goHeroSlide(1);
-}
+// Start after page load
+window.addEventListener('load', () => goHeroSlide(0));
 
 
 
