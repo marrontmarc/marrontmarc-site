@@ -949,7 +949,7 @@ footer {
   <!-- Background media slideshow -->
   <div class="hero-bg">
     <div class="hero-slide active">
-      <video muted autoplay playsinline>
+      <video muted autoplay playsinline loop>
         <source src="videos/clip1.mp4" type="video/mp4">
       </video>
     </div>
@@ -1465,7 +1465,6 @@ footer {
 let currentHeroSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hdot');
-let slideTimer = null;
 
 function goHeroSlide(n) {
   heroSlides[currentHeroSlide].classList.remove('active');
@@ -1478,32 +1477,9 @@ function goHeroSlide(n) {
 
   const vid = heroSlides[currentHeroSlide].querySelector('video');
   if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
-
-  clearInterval(slideTimer);
-  slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 }
 
-// clip1: duration取得後、その時間でsetTimeout → 次スライドへ
-const clip1Vid = heroSlides[0] && heroSlides[0].querySelector('video');
-if (clip1Vid) {
-  const startClip1Timer = () => {
-    const dur = clip1Vid.duration;
-    if (dur && isFinite(dur)) {
-      clearInterval(slideTimer);
-      setTimeout(() => { if (currentHeroSlide === 0) goHeroSlide(1); }, dur * 1000);
-    } else {
-      // durationが取れなければ3.5sフォールバック
-      slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
-    }
-  };
-  if (clip1Vid.readyState >= 1) {
-    startClip1Timer();
-  } else {
-    clip1Vid.addEventListener('loadedmetadata', startClip1Timer, { once: true });
-  }
-} else {
-  slideTimer = setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
-}
+setInterval(() => goHeroSlide(currentHeroSlide + 1), 3500);
 
 
 
