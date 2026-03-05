@@ -44,7 +44,7 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: multiply;
+  
 }
 .cursor-ring {
   width: 36px; height: 36px;
@@ -1527,11 +1527,8 @@ function animateRing() {
 animateRing();
 
 // Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// Make all reveals visible immediately as fallback
+document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 
 // Nav active state
 const sections = document.querySelectorAll('section[id]');
