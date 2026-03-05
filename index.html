@@ -1462,25 +1462,21 @@ footer {
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Hero slideshow
-let currentHeroSlide = 0;
-const heroSlides = document.querySelectorAll('.hero-slide');
-const heroDots = document.querySelectorAll('.hdot');
-
-function goHeroSlide(n) {
-  console.log('slide:', n);
-  heroSlides[currentHeroSlide].classList.remove('active');
-  if (heroDots[currentHeroSlide]) heroDots[currentHeroSlide].classList.remove('active');
-
-  currentHeroSlide = ((n % heroSlides.length) + heroSlides.length) % heroSlides.length;
-
-  heroSlides[currentHeroSlide].classList.add('active');
-  if (heroDots[currentHeroSlide]) heroDots[currentHeroSlide].classList.add('active');
-
-  const vid = heroSlides[currentHeroSlide].querySelector('video');
-  if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+let cur = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hdot');
+function go(n) {
+  slides[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = (n + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  dots[cur].classList.add('active');
+  const v = slides[cur].querySelector('video');
+  if (v) { v.currentTime = 0; v.play().catch(()=>{}); }
 }
-
-setInterval(() => { console.log('interval tick'); goHeroSlide(currentHeroSlide + 1); }, 3500);
+setInterval(() => go(cur + 1), 3500);
+const v0 = slides[0].querySelector('video');
+if (v0) v0.play().catch(()=>{});
 
 
 
