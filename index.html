@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>マロントマール | さがすものをさがす場所</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&display=swap" rel="stylesheet">
 <style>
 @font-face {
   font-family: 'Brown';
@@ -93,7 +91,7 @@ nav {
 .nav-links a:hover { color: var(--red); }
 
 .nav-support {
-  background: var(--red); color: white;
+  background: var(--red); color: white !important;
   padding: 9px 22px; border-radius: 100px;
   font-size: 13px; font-weight: 700;
   text-decoration: none;
@@ -101,7 +99,31 @@ nav {
   box-shadow: 0 3px 12px rgba(232,41,74,0.3);
   white-space: nowrap;
 }
-.nav-support:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,41,74,0.4); color: white; }
+.nav-support:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,41,74,0.4); color: white !important; }
+
+.nav-has-dropdown { position: relative; }
+.nav-dropdown {
+  position: absolute; top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: white; border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 8px 0; min-width: 200px;
+  list-style: none;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 500;
+}
+.nav-has-dropdown:hover .nav-dropdown {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown a {
+  display: block; padding: 10px 20px;
+  font-size: 13px; color: var(--text);
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-dropdown a:hover { background: var(--cream); color: var(--red); }
 
 .nav-hamburger { display: none; }
 
@@ -134,7 +156,7 @@ nav {
 }
 
 .hero-title {
-  font-family: 'Kaisei Tokumin', serif;
+  font-family: 'YuGothic', 'Yu Gothic', '游ゴシック', sans-serif;
   font-size: clamp(40px, 4.5vw, 68px);
   font-weight: 700;
   line-height: 1.2;
@@ -167,40 +189,14 @@ nav {
   max-width: 420px; margin-bottom: 48px;
 }
 
-.hero-btns {
-  display: flex; gap: 14px; flex-wrap: wrap;
+.btn-about {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--text); color: white;
+  padding: 14px 28px; border-radius: 100px;
+  font-size: 13px; font-weight: 700;
+  text-decoration: none; transition: background 0.2s;
 }
-
-.btn-primary {
-  background: var(--red); color: white;
-  padding: 14px 32px; border-radius: 100px;
-  font-size: 14px; font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(232,41,74,0.3);
-}
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(232,41,74,0.4); }
-
-.btn-ghost {
-  border: 1.5px solid var(--border);
-  color: var(--text); padding: 14px 32px;
-  border-radius: 100px; font-size: 14px; font-weight: 500;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
-  background: white;
-}
-.btn-ghost:hover { border-color: var(--red); color: var(--red); }
-
-/* Scroll hint */
-.scroll-hint {
-  position: absolute; bottom: 32px; left: 56px;
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'Brown', sans-serif;
-  font-size: 14px; color: var(--muted);
-  animation: bounce 2s ease-in-out infinite;
-}
-.scroll-hint svg { width: 20px; height: 20px; }
-@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.btn-about:hover { background: var(--red); }
 
 /* ===================== HERO FULLSCREEN ===================== */
 .hero-bg {
@@ -236,7 +232,7 @@ nav {
 }
 .hero .hero-title {
   color: white;
-  font-family: 'Kaisei Tokumin', serif;
+  font-family: 'YuGothic', 'Yu Gothic', '游ゴシック', sans-serif;
   font-size: clamp(48px, 7vw, 96px);
   font-weight: 700; line-height: 1.2;
   margin-bottom: 20px;
@@ -277,41 +273,7 @@ nav {
   cursor: pointer; transition: background 0.3s, transform 0.3s;
 }
 .hdot.active { background: white; transform: scale(1.3); }
-.scroll-hint {
-  position: absolute; bottom: 40px; right: 40px; z-index: 4;
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'Brown', sans-serif;
-  font-size: 14px; color: rgba(255,255,255,0.7);
-  animation: bounce 2s ease-in-out infinite;
-}
-.scroll-hint svg { width: 20px; height: 20px; }
 
-/* ===================== MARQUEE STRIP ===================== */
-.marquee-strip {
-  background: var(--red);
-  padding: 14px 0;
-  overflow: hidden;
-  position: relative;
-}
-.marquee-track {
-  display: flex; gap: 0;
-  animation: marquee 18s linear infinite;
-  width: max-content;
-}
-.marquee-item {
-  display: flex; align-items: center; gap: 24px;
-  padding: 0 32px;
-  font-size: 13px; font-weight: 700;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-}
-.marquee-dot {
-  width: 5px; height: 5px;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%; flex-shrink: 0;
-}
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
 /* ===================== SECTIONS COMMON ===================== */
 .section { padding: 96px 0; }
@@ -331,7 +293,7 @@ nav {
 }
 
 .sec-title {
-  font-family: 'Kaisei Tokumin', serif;
+  font-family: 'YuGothic', 'Yu Gothic', '游ゴシック', sans-serif;
   font-size: clamp(28px, 3vw, 42px);
   font-weight: 700; line-height: 1.3;
   margin-bottom: 16px;
@@ -344,158 +306,70 @@ nav {
   display: flex; align-items: flex-end; justify-content: space-between;
   margin-bottom: 48px;
 }
-.topics-all {
+.topics-viewmore {
   font-family: 'Brown', sans-serif;
-  font-size: 16px; color: var(--red);
+  font-size: 14px; color: var(--red);
   text-decoration: none;
   display: flex; align-items: center; gap: 6px;
   transition: gap 0.2s;
 }
-.topics-all:hover { gap: 12px; }
+.topics-viewmore:hover { gap: 12px; }
 
-.topics-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 20px;
+.topics-list { display: flex; flex-direction: column; }
+.topics-item {
+  display: flex; align-items: baseline; gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none; color: var(--text);
+  transition: color 0.2s;
 }
-
-.topic-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  text-decoration: none;
-  color: var(--text);
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex; flex-direction: column;
-}
-.topic-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
-
-.topic-card.featured { grid-row: span 2; }
-
-.topic-img {
-  width: 100%; background: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px;
-  flex-shrink: 0;
-  position: relative; overflow: hidden;
-}
-.topic-card.featured .topic-img { height: 260px; }
-.topic-card:not(.featured) .topic-img { height: 140px; }
-
-.topic-img-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 36px;
-  background: linear-gradient(135deg, var(--cream), var(--light-pink));
-}
-
-.topic-body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
-
-.topic-tag {
-  display: inline-block;
-  background: var(--light-yellow);
-  color: #96760A;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.08em; padding: 3px 10px;
-  border-radius: 100px; margin-bottom: 10px;
-  align-self: flex-start;
-}
-
-.topic-title {
-  font-size: 15px; font-weight: 700; line-height: 1.5;
-  margin-bottom: 8px; flex: 1;
-}
-.topic-card.featured .topic-title { font-size: 18px; }
-
-.topic-date {
-  font-size: 11px; color: var(--muted);
+.topics-item:first-child { border-top: 1px solid var(--border); }
+.topics-item:hover { color: var(--red); }
+.topics-date {
   font-family: 'Brown', sans-serif;
+  font-size: 12px; color: var(--muted);
+  flex-shrink: 0; min-width: 80px;
 }
-
-/* ===================== STORY ===================== */
-.story { background: var(--navy); position: relative; overflow: hidden; }
-
-.story::before {
-  content: '';
-  position: absolute; top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(232,41,74,0.12) 0%, transparent 70%);
-  pointer-events: none;
+.topics-tag {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+  background: var(--light-yellow); color: #96760A;
+  flex-shrink: 0; white-space: nowrap;
 }
+.topics-title { font-size: 14px; font-weight: 500; line-height: 1.6; }
 
-.story-inner {
+/* ===================== ABOUT ===================== */
+.about-section { background: var(--cream); }
+.about-inner {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1fr;
   gap: 80px; align-items: center;
 }
-
-.story .sec-eyebrow { color: var(--pink); }
-.story .sec-eyebrow::before { background: var(--pink); }
-.story .sec-title { color: white; }
-
-.story-photo {
-  width: 100%;
-  aspect-ratio: 4/5;
-  background: rgba(255,255,255,0.06);
-  border-radius: 24px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 60px;
-  position: relative; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
+.about-eyebrow {
+  font-family: 'Brown', sans-serif;
+  font-size: 13px; color: var(--red);
+  letter-spacing: 0.1em; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
 }
-
-.story-photo-label {
-  position: absolute; bottom: 24px; left: 24px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 12px; padding: 12px 16px;
-  color: white;
+.about-eyebrow::before {
+  content: ''; width: 24px; height: 2px;
+  background: var(--red); border-radius: 2px;
 }
-.story-photo-label strong { display: block; font-size: 15px; font-weight: 700; }
-.story-photo-label span { font-size: 11px; opacity: 0.6; font-family: 'Brown', sans-serif; }
-
-.story-content {}
-
-.story-quote {
-  font-family: 'Kaisei Tokumin', serif;
-  font-size: clamp(22px, 2.5vw, 34px);
-  color: white; line-height: 1.6;
-  margin-bottom: 32px;
+.about-catch {
+  font-size: clamp(26px, 2.8vw, 40px);
+  font-weight: 700; line-height: 1.5;
+  margin-bottom: 24px; color: var(--text);
 }
-.story-quote em { color: var(--pink); font-style: normal; }
-
-.story-body {
+.about-catch em { color: var(--red); font-style: normal; }
+.about-body {
   font-size: 14px; line-height: 2.1;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 40px;
+  color: var(--muted); margin-bottom: 40px;
 }
-
-/* Timeline */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.tl-item {
-  display: flex; gap: 20px;
-  padding: 20px 0;
-  position: relative;
+.about-photo {
+  width: 100%; aspect-ratio: 4/5;
+  border-radius: 24px; overflow: hidden;
 }
-.tl-item:not(:last-child)::after {
-  content: '';
-  position: absolute; left: 17px; top: 52px;
-  height: calc(100% - 24px); width: 2px;
-  background: linear-gradient(to bottom, rgba(232,41,74,0.4), transparent);
-}
-.tl-dot {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(232,41,74,0.15);
-  border: 2px solid rgba(232,41,74,0.4);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 2px;
-  font-family: 'Brown', sans-serif; font-size: 13px; color: var(--pink);
-}
-.tl-content {}
-.tl-year { font-size: 11px; color: var(--pink); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 3px; }
-.tl-text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.7; }
-.tl-text strong { color: white; font-weight: 700; }
+.about-photo img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ===================== SERVICES ===================== */
 .services { background: var(--cream); }
@@ -513,7 +387,7 @@ nav {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -547,44 +421,10 @@ nav {
 .svc-card.c2 .svc-tag { background: #E8F5EE; color: var(--green); }
 .svc-card.c3 .svc-icon { background: var(--light-yellow); }
 .svc-card.c3 .svc-tag { background: var(--light-yellow); color: #96760A; }
+.svc-card.c4 .svc-icon { background: #E8F5EE; }
+.svc-card.c4 .svc-tag { background: #E8F5EE; color: var(--green); }
 
-/* Full-width service card */
-.svc-wide {
-  grid-column: span 3;
-  background: linear-gradient(135deg, #1a4a32, #2d7a50);
-  color: white;
-  border-radius: 24px; padding: 48px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 48px; align-items: center;
-  transition: transform 0.3s;
-}
-.svc-wide:hover { transform: translateY(-4px); }
-
-.svc-wide-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 100px; padding: 6px 14px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-  margin-bottom: 16px;
-}
-.svc-wide h3 { font-size: 28px; font-weight: 700; margin-bottom: 14px; }
-.svc-wide p { font-size: 14px; opacity: 0.8; line-height: 1.9; }
-
-.svc-wide-features {
-  display: flex; flex-direction: column; gap: 14px;
-}
-.svc-feature {
-  display: flex; align-items: center; gap: 14px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 14px 18px;
-}
-.svc-feature-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(255,255,255,0.12);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-}
-.svc-feature p { font-size: 13px; opacity: 0.85; }
+.svc-card { text-decoration: none; color: var(--text); display: block; }
 
 /* ===================== WORKS ===================== */
 .works { background: var(--warm); }
@@ -635,234 +475,104 @@ nav {
 .work-desc { font-size: 12px; color: var(--muted); line-height: 1.8; flex: 1; }
 .work-year { font-family: 'Brown', sans-serif; font-size: 13px; color: var(--muted); margin-top: 12px; }
 
-/* ===================== MEMBERS ===================== */
-.members { background: white; }
-
-.members-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-}
-
-.member-card {
-  background: var(--cream); border-radius: 24px;
-  padding: 36px 24px 28px;
-  text-align: center;
-  transition: transform 0.3s;
-}
-.member-card:hover { transform: translateY(-6px); }
-
-.member-card.lead {
-  background: var(--red); color: white;
-}
-
-.member-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  margin: 0 auto 14px;
-  background: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  overflow: hidden;
-  position: relative;
-}
-
-/* Photo placeholder indicator */
-.member-avatar::after {
-  content: '📷';
-  position: absolute; bottom: -2px; right: -2px;
-  font-size: 14px;
-  background: white; border-radius: 50%;
-  width: 22px; height: 22px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-.member-role {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--red); margin-bottom: 6px;
-}
-.member-card.lead .member-role { color: rgba(255,255,255,0.7); }
-
-.member-name { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-
-.member-bio {
-  font-size: 12px; color: var(--muted); line-height: 1.8;
-}
-.member-card.lead .member-bio { color: rgba(255,255,255,0.75); }
-
-/* ===================== SUPPORT ===================== */
-.support {
-  background: var(--red); position: relative; overflow: hidden;
-}
-
-.support::before, .support::after {
-  content: '';
-  position: absolute; border-radius: 50%; pointer-events: none;
-}
-.support::before { width: 500px; height: 500px; background: rgba(255,255,255,0.04); top: -200px; left: -100px; }
-.support::after { width: 300px; height: 300px; background: rgba(255,255,255,0.06); bottom: -100px; right: -60px; }
-
-.support-inner {
-  position: relative; z-index: 1;
-  display: grid; grid-template-columns: 1.2fr 1fr;
-  gap: 80px; align-items: center;
-}
-
-.support .sec-eyebrow { color: rgba(255,255,255,0.6); }
-.support .sec-eyebrow::before { background: rgba(255,255,255,0.4); }
-.support .sec-title { color: white; }
-
-.support-desc {
-  font-size: 15px; line-height: 2.1; color: rgba(255,255,255,0.75);
-  margin-bottom: 40px;
-}
-
-.support-btns { display: flex; flex-direction: column; gap: 14px; }
-
-.btn-donate {
-  background: white; color: var(--red);
-  padding: 18px 36px; border-radius: 16px;
-  font-size: 16px; font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-  text-align: center;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-}
-.btn-donate:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
-
-.btn-contact-white {
-  border: 1.5px solid rgba(255,255,255,0.4); color: white;
-  padding: 16px 36px; border-radius: 16px;
-  font-size: 14px; font-weight: 500;
-  text-decoration: none; text-align: center;
-  transition: background 0.2s;
-}
-.btn-contact-white:hover { background: rgba(255,255,255,0.1); }
-
-.support-cards {
-  display: flex; flex-direction: column; gap: 16px;
-}
-
-.support-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 16px; padding: 20px 24px;
-  border: 1px solid rgba(255,255,255,0.15);
-}
-.support-card h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 6px; }
-.support-card p { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.7; }
-
-.support-amount {
-  font-family: 'Brown', sans-serif;
-  font-size: 28px; color: var(--yellow);
-  display: block; margin-bottom: 4px;
-}
 
 /* ===================== INSTAGRAM ===================== */
-.instagram { background: var(--cream); }
+.instagram { background: var(--cream); overflow: hidden; }
 
 .insta-header {
   display: flex; align-items: flex-end; justify-content: space-between;
   margin-bottom: 40px;
 }
 
-.insta-link {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Brown', sans-serif; font-size: 16px;
-  color: var(--red); text-decoration: none;
-  transition: gap 0.2s;
+.insta-scroll-wrap {
+  overflow: hidden;
+  margin: 0 -40px;
 }
-.insta-link:hover { gap: 14px; }
 
-.insta-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+.insta-row {
+  display: flex; gap: 16px;
+  padding: 8px 40px;
+  width: max-content;
+}
+
+.insta-row.row1 { animation: instaScrollLeft 30s linear infinite; }
+.insta-row.row2 { animation: instaScrollRight 30s linear infinite; margin-top: 16px; }
+
+@keyframes instaScrollLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes instaScrollRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
 
 .insta-item {
-  aspect-ratio: 1;
+  width: 220px; height: 220px;
   background: var(--light-pink);
-  border-radius: 16px;
+  flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-size: 32px;
   overflow: hidden; position: relative;
-  transition: transform 0.3s;
   cursor: pointer;
 }
-.insta-item:hover { transform: scale(1.03); }
+.insta-item:nth-child(3n+1) { border-radius: 48% 52% 60% 40% / 50% 44% 56% 50%; }
+.insta-item:nth-child(3n+2) { border-radius: 60% 40% 44% 56% / 52% 60% 40% 48%; }
+.insta-item:nth-child(3n)   { border-radius: 44% 56% 52% 48% / 60% 40% 60% 40%; }
 
-.insta-item::after {
-  content: attr(data-label);
-  position: absolute; inset: 0;
-  background: rgba(232,41,74,0.85);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 12px; font-weight: 700;
-  opacity: 0; transition: opacity 0.3s;
+.insta-follow { text-align: center; margin-top: 48px; }
+.insta-follow a {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Brown', sans-serif; font-size: 14px;
+  color: var(--red); text-decoration: none;
+  border: 1.5px solid var(--red); padding: 12px 28px;
+  border-radius: 100px; transition: background 0.2s, color 0.2s;
 }
-.insta-item:hover::after { opacity: 1; }
+.insta-follow a:hover { background: var(--red); color: white; }
 
 /* ===================== FOOTER ===================== */
 footer {
   background: var(--navy);
-  padding: 64px 40px 32px;
+  padding: 48px 40px 32px;
 }
 
 .footer-inner {
   max-width: 1120px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr;
-  gap: 64px; margin-bottom: 48px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 40px;
 }
 
 .footer-brand {}
+
 .footer-logo {
   display: flex; align-items: center; gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .footer-logo-mark {
-  width: 40px; height: 40px; background: var(--red);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 900; font-size: 18px;
+  width: 36px; height: 36px; background: var(--red);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 900; font-size: 16px;
 }
-.footer-logo-text { font-size: 18px; font-weight: 900; color: white; }
+.footer-logo-text { font-size: 16px; font-weight: 900; color: white; }
 
 .footer-tagline {
-  font-family: 'Brown', sans-serif; font-size: 16px;
-  color: rgba(255,255,255,0.4); margin-bottom: 20px;
-  line-height: 1.6;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
 }
 
-.footer-social {
-  display: flex; gap: 12px;
+.footer-links {
+  display: flex; flex-direction: column; gap: 12px;
+  text-align: right; padding-top: 4px;
 }
-.footer-social a {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(255,255,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.5); text-decoration: none;
-  font-size: 16px; transition: background 0.2s;
-}
-.footer-social a:hover { background: rgba(255,255,255,0.15); }
-
-.footer-col h4 {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(255,255,255,0.35);
-  margin-bottom: 16px;
-}
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col a {
+.footer-links a {
   color: rgba(255,255,255,0.55); text-decoration: none;
-  font-size: 13px; transition: color 0.2s;
+  font-size: 13px; transition: color 0.2s; white-space: nowrap;
 }
-.footer-col a:hover { color: white; }
+.footer-links a:hover { color: white; }
 
 .footer-bottom {
   max-width: 1120px; margin: 0 auto;
   padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex; justify-content: space-between; align-items: center;
   font-size: 11px; color: rgba(255,255,255,0.25);
 }
 
@@ -903,33 +613,35 @@ footer {
 
 /* ===================== MOBILE ===================== */
 @media (max-width: 960px) {
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-hamburger { display: block; cursor: pointer; background: none; border: none; font-size: 24px; }
 
+  .nav-dropdown {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important; visibility: visible !important;
+    box-shadow: none; background: var(--cream);
+    border-radius: 8px; margin-top: 8px;
+    display: none;
+  }
+  .nav-dropdown.open { display: block; }
+
   .hero { min-height: 100vh; }
   .hero .hero-title { font-size: clamp(40px, 10vw, 64px); }
 
-  .topics-grid { grid-template-columns: 1fr; }
-  .topic-card.featured { grid-row: auto; }
-
-  .story-inner { grid-template-columns: 1fr; }
-  .story-photo { aspect-ratio: 3/2; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
 
   .services-intro { grid-template-columns: 1fr; gap: 24px; }
-  .services-grid { grid-template-columns: 1fr; }
-  .svc-wide { grid-template-columns: 1fr; }
-  .svc-wide { grid-column: span 1; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
 
   .works-grid { grid-template-columns: 1fr 1fr; }
-  .members-grid { grid-template-columns: 1fr 1fr; }
 
-  .support-inner { grid-template-columns: 1fr; gap: 40px; }
-  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  .insta-scroll-wrap { margin: 0 -20px; }
+  .insta-row { padding: 8px 20px; }
 
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-inner { flex-direction: column; gap: 24px; }
+  .footer-links { text-align: left; }
   .container { padding: 0 20px; }
 }
 </style>
@@ -947,11 +659,18 @@ footer {
   </a>
 
   <ul class="nav-links">
-    <li><a href="#topics">活動</a></li>
-    <li><a href="#story">ストーリー</a></li>
-    <li><a href="#services">サービス</a></li>
-    <li><a href="#works">実績</a></li>
-    <li><a href="#members">チーム</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="articles.html">記事</a></li>
+    <li class="nav-has-dropdown">
+      <a href="#">事業 ▾</a>
+      <ul class="nav-dropdown">
+        <li><a href="atelier.html">こどもアトリエ食堂</a></li>
+        <li><a href="lab.html">キッズデザインラボ</a></li>
+        <li><a href="park.html">マロントマール公園</a></li>
+        <li><a href="design.html">デザイン・イラスト</a></li>
+      </ul>
+    </li>
+    <li><a href="works.html">実績</a></li>
     <li><a href="support.html" class="nav-support">仲間になる</a></li>
   </ul>
 
@@ -976,16 +695,11 @@ footer {
   <div class="hero-left">
     <p class="hero-eyebrow">Creative 3rd Place for Children</p>
     <h1 class="hero-title">
-      さがすものを<br>
-      <em>さがす</em>場所。
+      さがすものを <em>さがす</em>場所。
     </h1>
     <p class="hero-desc">
       こどもと社会をつなぐ、クリエイティブな3rdプレイス。
     </p>
-    <div class="hero-btns">
-      <a href="#about" class="btn-primary">わたしたちのこと</a>
-      <a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="btn-ghost-white" target="_blank">💛 活動を応援する</a>
-    </div>
   </div>
 
   <!-- Dots -->
@@ -996,34 +710,9 @@ footer {
     <span class="hdot" onclick="go(3)"></span>
   </div>
 
-  <!-- Scroll hint -->
-  <div class="scroll-hint">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
-    scroll
-  </div>
 
 </section>
 
-<!-- ===== MARQUEE ===== -->
-<div class="marquee-strip">
-  <div class="marquee-track">
-    <!-- duplicated for seamless loop -->
-    <div class="marquee-item">こどもアトリエ食堂<div class="marquee-dot"></div></div>
-    <div class="marquee-item">キッズデザインラボ<div class="marquee-dot"></div></div>
-    <div class="marquee-item">マロントマール公園<div class="marquee-dot"></div></div>
-    <div class="marquee-item">まちづくり × こども<div class="marquee-dot"></div></div>
-    <div class="marquee-item">アート × デザイン<div class="marquee-dot"></div></div>
-    <div class="marquee-item">フューチャーリテラシー<div class="marquee-dot"></div></div>
-    <div class="marquee-item">こどもアトリエ食堂<div class="marquee-dot"></div></div>
-    <div class="marquee-item">キッズデザインラボ<div class="marquee-dot"></div></div>
-    <div class="marquee-item">マロントマール公園<div class="marquee-dot"></div></div>
-    <div class="marquee-item">まちづくり × こども<div class="marquee-dot"></div></div>
-    <div class="marquee-item">アート × デザイン<div class="marquee-dot"></div></div>
-    <div class="marquee-item">フューチャーリテラシー<div class="marquee-dot"></div></div>
-  </div>
-</div>
 
 <!-- ===== TOPICS ===== -->
 <section class="section topics" id="topics">
@@ -1031,125 +720,48 @@ footer {
     <div class="topics-header reveal">
       <div>
         <p class="sec-eyebrow">Topics & Note</p>
-        <h2 class="sec-title">活動のきろく</h2>
+        <h2 class="sec-title">記事</h2>
       </div>
-      <a href="https://note.com" class="topics-all" target="_blank">
-        すべて見る →
+    </div>
+
+    <div class="topics-list">
+      <a class="topics-item reveal" href="articles.html">
+        <span class="topics-date">2025.03.01</span>
+        <span class="topics-tag">活動報告</span>
+        <span class="topics-title">うめきたマッププロジェクト、スタートしました。</span>
+      </a>
+      <a class="topics-item reveal reveal-d1" href="articles.html">
+        <span class="topics-date">2025.02.26</span>
+        <span class="topics-tag">NOTE</span>
+        <span class="topics-title">フィンランドの学校で全校生と校章をつくった話。こどもたちが主役になる瞬間のこと。</span>
+      </a>
+      <a class="topics-item reveal reveal-d2" href="articles.html">
+        <span class="topics-date">2025.02.18</span>
+        <span class="topics-tag">イベント</span>
+        <span class="topics-title">文部科学省「わたしとみらい、つながるサイエンス展」に参加しました。</span>
       </a>
     </div>
 
-    <div class="topics-grid">
-      <!-- Featured article -->
-      <div class="topic-card featured reveal">
-        <div class="topic-img">
-          <!-- ★写真差し替え★ <img src="photo.jpg" style="width:100%;height:100%;object-fit:cover;"> -->
-          <div class="topic-img-placeholder"><img src="images/img1_atelier.jpg" onerror="this.parentElement.innerHTML='🎨'" style="width:100%;height:100%;object-fit:cover;"></div>
-        </div>
-        <div class="topic-body">
-          <span class="topic-tag">NOTE</span>
-          <p class="topic-title">フィンランドの学校で全校生と校章をつくった話。こどもたちが主役になる瞬間のこと。</p>
-          <span class="topic-date">2025.02.26</span>
-        </div>
-      </div>
-
-      <!-- Regular articles -->
-      <div class="topic-card reveal reveal-d1">
-        <div class="topic-img">
-          <div class="topic-img-placeholder" style="background:linear-gradient(135deg,#E8F5EE,#D5EBE8);">🏙️</div>
-        </div>
-        <div class="topic-body">
-          <span class="topic-tag">活動報告</span>
-          <p class="topic-title">うめきたマッププロジェクト、スタートしました。</p>
-          <span class="topic-date">2025.03.01</span>
-        </div>
-      </div>
-
-      <div class="topic-card reveal reveal-d2">
-        <div class="topic-img">
-          <div class="topic-img-placeholder" style="background:linear-gradient(135deg,#FEF6D6,#FDE8EC);">🌱</div>
-        </div>
-        <div class="topic-body">
-          <span class="topic-tag">ビジョン</span>
-          <p class="topic-title">マロントマール公園、少しずつかたちになってきました。</p>
-          <span class="topic-date">2025.02.10</span>
-        </div>
-      </div>
-
-      <div class="topic-card reveal reveal-d1">
-        <div class="topic-img">
-          <div class="topic-img-placeholder" style="background:linear-gradient(135deg,#E8EFFE,#D5E0F5);">🔬</div>
-        </div>
-        <div class="topic-body">
-          <span class="topic-tag">イベント</span>
-          <p class="topic-title">文部科学省「わたしとみらい、つながるサイエンス展」に参加しました。</p>
-          <span class="topic-date">2025.02.18</span>
-        </div>
-      </div>
-
-      <div class="topic-card reveal reveal-d2">
-        <div class="topic-img">
-          <div class="topic-img-placeholder" style="background:linear-gradient(135deg,#FDE8EC,#FBD5DC);">💌</div>
-        </div>
-        <div class="topic-body">
-          <span class="topic-tag">思い</span>
-          <p class="topic-title">「わたしを変えてくれてありがとう」—ある中学生からの手紙。</p>
-          <span class="topic-date">2025.01.20</span>
-        </div>
-      </div>
+    <div style="text-align:right; margin-top:24px;">
+      <a href="articles.html" class="topics-viewmore">すべて見る →</a>
     </div>
   </div>
 </section>
 
-<!-- ===== STORY ===== -->
-<section class="section story" id="story">
+<!-- ===== ABOUT ===== -->
+<section class="section about-section" id="about">
   <div class="container">
-    <div class="story-inner">
+    <div class="about-inner">
       <div class="reveal">
-        <!-- ★代表写真差し替え★ -->
-        <div class="story-photo">
-          <img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:24px;">
-          <div class="story-photo-label">
-            <strong>琴川 さくら</strong>
-            <span>Founder & Representative</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal reveal-d2">
-        <p class="sec-eyebrow">Our Story</p>
-        <div class="story-quote">
-          全ての子どもたちの<br>
-          <em>ソウゾウ力</em>を認め、<br>
-          応援し、愛で包み込む。
-        </div>
-        <p class="story-body">
-          画一的な教育に違和感を感じ続けてきた。どうにかしなければという使命感から、イギリスへデザイン留学、フィンランド・クロアチアで美術教師として勤務。帰国後、日本の教育システムの変わらなさに唖然としながらも、子どもたちとの現場で確信を深めてきた。<br><br>
-          学校でも塾でもない、新たな学びの場が必要だ。
+        <p class="about-eyebrow">About</p>
+        <h2 class="about-catch">さがすものを、さがす場所。</h2>
+        <p class="about-body">
+          学校でも塾でもない、新たな学びの場が必要だ。こどもたちのクリエイティビティを認め、応援し、愛で包みこむ。マロントマールは、あなたの探したいものを一緒に探す場所です。
         </p>
-
-        <div class="timeline">
-          <div class="tl-item">
-            <div class="tl-dot">FI</div>
-            <div class="tl-content">
-              <p class="tl-year">2023</p>
-              <p class="tl-text"><strong>フィンランド・クロアチアで美術教師</strong><br>インクルーシブ教育・全校生と校章を制作</p>
-            </div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot">JP</div>
-            <div class="tl-content">
-              <p class="tl-year">2023–24</p>
-              <p class="tl-text"><strong>豊岡市・港中学校で美術教諭</strong><br>子どもの主体性を引き出すカリキュラム開発</p>
-            </div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot">M</div>
-            <div class="tl-content">
-              <p class="tl-year">2024.10</p>
-              <p class="tl-text"><strong>一般社団法人マロントマール設立</strong><br>こどもと社会をつなぐ3rdプレイスへ</p>
-            </div>
-          </div>
-        </div>
+        <a href="about.html" class="btn-about">わたしたちについて →</a>
+      </div>
+      <div class="about-photo reveal reveal-d2">
+        <img src="images/img4_hikari.jpg" alt="マロントマールについて">
       </div>
     </div>
   </div>
@@ -1165,55 +777,38 @@ footer {
       </div>
       <p class="services-desc reveal reveal-d1">
         子どもと社会をつなぐ4つの事業。<br>
-        グラフィック・サイト・まちづくり・ロゴ・イラスト…<br>
         こどもたちのクリエイティビティを社会に届けます。
       </p>
     </div>
 
     <div class="services-grid">
-      <div class="svc-card c1 reveal">
+      <a class="svc-card c1 reveal" href="atelier.html">
         <div class="svc-icon">🍜</div>
         <h3>こどもアトリエ食堂</h3>
         <p>全ての子どもたちのソウゾウ力を認め、応援し、愛で包み込む場所。栄養ある食事と安心できる居場所をアートとともに届けます。</p>
         <span class="svc-tag">社会貢献</span>
-      </div>
+      </a>
 
-      <div class="svc-card c2 reveal reveal-d1">
+      <a class="svc-card c2 reveal reveal-d1" href="lab.html">
         <div class="svc-icon">🏙️</div>
         <h3>キッズデザインラボ</h3>
         <p>企業・自治体と連携し、こどもをまちづくりに招く事業。ワークショップで生まれた作品をロゴ・ビジュアルにデザイン。</p>
         <span class="svc-tag">B to B</span>
-      </div>
+      </a>
 
-      <div class="svc-card c3 reveal reveal-d2">
+      <a class="svc-card c3 reveal reveal-d2" href="park.html">
+        <div class="svc-icon">🌱</div>
+        <h3>マロントマール公園</h3>
+        <p>樹木・畑・アトリエが融合した自然体験型学び場。こどもと自然をつなぐ、新しい学びの拠点。</p>
+        <span class="svc-tag">建設中</span>
+      </a>
+
+      <a class="svc-card c4 reveal reveal-d3" href="design.html">
         <div class="svc-icon">✏️</div>
         <h3>デザイン・イラスト</h3>
         <p>グラフィック・サイト・チラシ・冊子・ロゴ・イラスト。マロントマールのクリエイティブな視点で、あなたのビジョンを形に。</p>
         <span class="svc-tag">制作</span>
-      </div>
-
-      <!-- Park wide -->
-      <div class="svc-wide reveal reveal-d1">
-        <div>
-          <div class="svc-wide-badge">🌱 建設中 — 兵庫県豊岡市</div>
-          <h3>マロントマール公園</h3>
-          <p>樹木・畑・アトリエが融合した自然体験型学び場。こどもと自然をつなぐ、新しい学びの拠点。将来はカフェ併設のクリエイティブなサードプレイスをオープン予定。</p>
-        </div>
-        <div class="svc-wide-features">
-          <div class="svc-feature">
-            <div class="svc-feature-icon">🌳</div>
-            <p>豊かな樹木と自然環境</p>
-          </div>
-          <div class="svc-feature">
-            <div class="svc-feature-icon">🌿</div>
-            <p>こどもと育てる畑</p>
-          </div>
-          <div class="svc-feature">
-            <div class="svc-feature-icon">☕</div>
-            <p>将来：カフェ + アトリエ拠点</p>
-          </div>
-        </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1229,7 +824,7 @@ footer {
     </div>
 
     <div class="works-grid">
-      <a class="work-card reveal" href="#">
+      <a class="work-card reveal" href="works.html">
         <div class="work-img">
           <div class="work-img-bg" style="background:linear-gradient(135deg,#E8EFFE,#c8d8f5);">🇫🇮</div>
           <span class="work-loc">Finland</span>
@@ -1241,7 +836,7 @@ footer {
         </div>
       </a>
 
-      <a class="work-card reveal reveal-d1" href="#">
+      <a class="work-card reveal reveal-d1" href="works.html">
         <div class="work-img">
           <div class="work-img-bg" style="background:linear-gradient(135deg,#FEF6D6,#fde8b4);">🗺️</div>
           <span class="work-loc">大阪</span>
@@ -1253,7 +848,7 @@ footer {
         </div>
       </a>
 
-      <a class="work-card reveal reveal-d2" href="#">
+      <a class="work-card reveal reveal-d2" href="works.html">
         <div class="work-img">
           <div class="work-img-bg" style="background:linear-gradient(135deg,#E8F5EE,#c8ebd8);">🏭</div>
           <span class="work-loc">門真市</span>
@@ -1277,7 +872,7 @@ footer {
         </div>
       </a>
 
-      <a class="work-card reveal reveal-d1" href="#">
+      <a class="work-card reveal reveal-d1" href="works.html">
         <div class="work-img">
           <div class="work-img-bg" style="background:linear-gradient(135deg,#e8f0fe,#d0deff);">🧪</div>
           <span class="work-loc">文部科学省</span>
@@ -1289,7 +884,7 @@ footer {
         </div>
       </a>
 
-      <a class="work-card reveal reveal-d2" href="#">
+      <a class="work-card reveal reveal-d2" href="works.html">
         <div class="work-img">
           <div class="work-img-bg" style="background:linear-gradient(135deg,#eee8fe,#ddd0fe);">🎨</div>
           <span class="work-loc">京都市</span>
@@ -1301,123 +896,46 @@ footer {
         </div>
       </a>
     </div>
-  </div>
-</section>
 
-<!-- ===== MEMBERS ===== -->
-<section class="section members" id="members">
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-eyebrow">Team</p>
-      <h2 class="sec-title">メンバー</h2>
-    </div>
-
-    <div class="members-grid">
-      <div class="member-card lead reveal reveal-d1">
-        <div class="member-avatar">🌸</div>
-        <p class="member-role">Founder & Manager</p>
-        <h3 class="member-name">琴川 さくら</h3>
-        <p class="member-bio">トランジションデザイナー・美術教育研究家。フィンランド・クロアチア・日本で美術教師を経験。ロンドン芸術大学×京都工芸繊維大学修士。博士課程在籍中。</p>
-      </div>
-
-      <div class="member-card reveal reveal-d2">
-        <div class="member-avatar">🌿</div>
-        <p class="member-role" style="color:var(--teal)">Staff</p>
-        <h3 class="member-name">琴川 なごみ</h3>
-        <p class="member-bio">放課後等デイサービス3年勤務。強度行動障害基礎実践。美術教員免許取得予定。</p>
-      </div>
-
-      <div class="member-card reveal reveal-d3">
-        <div class="member-avatar">☀️</div>
-        <p class="member-role" style="color:var(--teal)">保育士</p>
-        <h3 class="member-name">琴川 久美子</h3>
-        <p class="member-bio">保育士。放課後等デイサービス5年。就労支援B型3年。社会福祉士養成講座在籍中。</p>
-      </div>
-
-      <div class="member-card reveal reveal-d1">
-        <div class="member-avatar">🌱</div>
-        <p class="member-role" style="color:var(--green)">Supporter</p>
-        <h3 class="member-name">馬場 恵子</h3>
-        <p class="member-bio">アクセンチュア勤務。生物学教員免許・デザイナー。子ども食堂チロル堂にも参加。</p>
-      </div>
-
-      <div class="member-card reveal reveal-d2">
-        <div class="member-avatar">🪵</div>
-        <p class="member-role" style="color:var(--green)">Supporter</p>
-        <h3 class="member-name">木下 順二</h3>
-        <p class="member-bio">神鍋の木工職人。ワークショップ経験あり。本物のものづくりを子どもたちに伝える。</p>
-      </div>
-
-      <div class="member-card reveal reveal-d3">
-        <div class="member-avatar">🌍</div>
-        <p class="member-role" style="color:var(--teal)">International</p>
-        <h3 class="member-name">Sanaa Asim</h3>
-        <p class="member-bio">英国マンチェスター在住のデザイナー。グローバルな視点でマロントマールを支える。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SUPPORT ===== -->
-<section class="section support" id="support">
-  <div class="container">
-    <div class="support-inner">
-      <div class="reveal">
-        <p class="sec-eyebrow">Support Us</p>
-        <h2 class="sec-title">活動を<br>応援してください</h2>
-        <p class="support-desc">
-          マロントマールは、すべての子どもたちがクリエイティビティを通じて社会とつながれる場所を目指しています。企業CSR・個人寄付・協賛など、さまざまな形でご支援いただけます。
-        </p>
-        <div class="support-btns">
-          <a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" class="btn-donate" target="_blank">
-            💛 今すぐ寄付・応援する
-          </a>
-          <a href="/cdn-cgi/l/email-protection#4b22252d240b262a3924253f24262a3965213b" class="btn-contact-white">
-            企業協賛・CSRのご相談
-          </a>
-        </div>
-      </div>
-
-      <div class="support-cards reveal reveal-d2">
-        <div class="support-card">
-          <span class="support-amount">¥1,000〜</span>
-          <h4>個人サポーター</h4>
-          <p>活動レポートをお届けします。こどもたちの「今」を一緒に感じてください。</p>
-        </div>
-        <div class="support-card">
-          <span class="support-amount">¥30,000〜</span>
-          <h4>企業協賛・CSR</h4>
-          <p>ワークショップへの参加・ロゴ掲載・社員ボランティア受け入れなど。稟議書のフォーマットもご用意します。</p>
-        </div>
-        <div class="support-card">
-          <span class="support-amount">ご相談</span>
-          <h4>キッズデザインラボ依頼</h4>
-          <p>企業理念や地域の魅力を、こどもとアートで表現。ロゴ・壁画・ノベルティとして納品します。</p>
-        </div>
-      </div>
+    <div style="text-align:right; margin-top:32px;">
+      <a href="works.html" class="topics-viewmore">実績をすべて見る →</a>
     </div>
   </div>
 </section>
 
 <!-- ===== INSTAGRAM ===== -->
 <section class="section instagram" id="instagram">
-  <div class="container">
-    <div class="insta-header reveal">
-      <div>
-        <p class="sec-eyebrow">Instagram</p>
-        <h2 class="sec-title">日々のきろく</h2>
-      </div>
-      <a href="https://www.instagram.com/marrontmarc" class="insta-link" target="_blank">
-        @marrontmarc →
-      </a>
+  <div class="insta-scroll-wrap">
+    <div class="insta-row row1">
+      <div class="insta-item"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img6_calendar.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="insta-item"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img6_calendar.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
+    <div class="insta-row row2">
+      <div class="insta-item"><img src="images/img6_calendar.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="insta-item"><img src="images/img6_calendar.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img3_workshop.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="insta-item"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+  </div>
 
-      <div class="insta-grid">
-      <div class="insta-item" data-label="ワークショップ"><img src="images/img1_atelier.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
-      <div class="insta-item" data-label="こどもアトリエ食堂"><img src="images/img2_shokudo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
-      <div class="insta-item" data-label="ものづくり"><img src="images/img5_craft.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
-      <div class="insta-item" data-label="活動の様子"><img src="images/img4_hikari.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
-    </div>
+  <div class="insta-follow">
+    <a href="https://www.instagram.com/marrontmarc" target="_blank">Follow us @marrontmarc →</a>
   </div>
 </section>
 
@@ -1429,41 +947,17 @@ footer {
         <div class="footer-logo-mark">M</div>
         <div class="footer-logo-text">マロントマール</div>
       </div>
-      <p class="footer-tagline">
-        さがすものをさがす場所。<br>
-        こどもと社会をつなぐ<br>クリエイティブな3rdプレイス
-      </p>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/marrontmarc" target="_blank" title="Instagram">📷</a>
-        <a href="https://note.com" target="_blank" title="note">📝</a>
-        <a href="/cdn-cgi/l/email-protection#80e9eee6efc0ede1f2efeef4efede1f2aeeaf0" title="Mail">✉️</a>
-      </div>
+      <p class="footer-tagline">さがすものをさがす場所。</p>
     </div>
-
-    <div class="footer-col">
-      <h4>事業内容</h4>
-      <ul>
-        <li><a href="#services">こどもアトリエ食堂</a></li>
-        <li><a href="#services">キッズデザインラボ</a></li>
-        <li><a href="#services">デザイン・イラスト</a></li>
-        <li><a href="#services">マロントマール公園</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>About</h4>
-      <ul>
-        <li><a href="#story">代表のこと</a></li>
-        <li><a href="#members">チーム</a></li>
-        <li><a href="#works">実績</a></li>
-        <li><a href="https://buy.stripe.com/eVq5kD1C1cn2bPla5RgA800" target="_blank">💛 応援する</a></li>
-      </ul>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/marrontmarc" target="_blank">Instagram</a>
+      <a href="https://note.com" target="_blank">Note</a>
+      <a href="contact.html">お問い合わせ</a>
     </div>
   </div>
 
   <div class="footer-bottom">
     <span>© 2025 一般社団法人マロントマール</span>
-    <span>兵庫県豊岡市 / 神戸市</span>
   </div>
 </footer>
 
@@ -1514,4 +1008,21 @@ function toggleMenu() {
     links.style.left = '0'; links.style.right = '0';
     links.style.background = 'rgba(251,246,238,0.98)';
     links.style.padding = '24px 32px';
-    links.st
+    links.style.gap = '16px';
+    links.style.zIndex = '199';
+  }
+}
+
+// Mobile dropdown toggle
+document.querySelectorAll('.nav-has-dropdown > a').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    if (window.innerWidth <= 960) {
+      e.preventDefault();
+      const dd = this.nextElementSibling;
+      dd.classList.toggle('open');
+    }
+  });
+});
+</script>
+</body>
+</html>
